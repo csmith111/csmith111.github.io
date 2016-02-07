@@ -2,10 +2,12 @@
 layout: post
 title:  "A New Blog...and the magic that created it"
 date:   2016-02-06 13:00:28 -0500
+summary: My notes on setting up a blogging site using Jekyll and GitHub Pages. It is always amazing when the "magic" we call technology works!
 categories: jekyll update
 ---
 
-After a long time I finally decided to create a blog. One of my friends suggested that I should use GitHub Pages to create the site. Apart from regular HTML, GitHub Pages supports [Jekyll][Jekyll] (a static site generator). Amazing how we have come back full circle to realizing that static sites are great and you don't nee to have a database running for many simple situations like a blog site or a project documentation site.
+After a long time I finally decided to create a blog. One of my friends suggested that I should use GitHub Pages to create the site. Apart from regular HTML, GitHub Pages supports [Jekyll][Jekyll] (a static site generator). Amazing how we have come back full circle to realizing that static sites are great and you don't need to have a database running or other complex infrastructure. For many simple situations like a blog site or a project documentation site a "static HTML site" is a simpler, more secure and performant option.
+Leveraging Markdown for templates to simplify content editing; and using a site generator to generate the HTML from the markdown template and control the over all layout and look and feel of the site (of course we use css as well) seems to be a reasonable option. That in a nutshell is what a static site generator (in this case Jekyll) will do for you.
 
 Here are the steps that I took based on information that I found on [git pages documentation][github-pages-doc], [using Jekyll with pages][Jekyll-and-Pages], [Jekyll tips][Jekyll-tips] and [pages help][github-pages-help]. As I am writing this it is interesting to see how many different things you need to understand, version control (git), static site generation (Jekyll), HTML CSS, markdown and perhaps some Ruby as well. You may not need to use all this if you get lucky, but I find luck is overrated when it comes to computers and code.
 
@@ -167,6 +169,10 @@ git push -u origin master
 {% endhighlight %}
 
 If you are seeing this page, then all of the above described magic worked! I would love it if you could try this out and let me know if there are any inaccuracies in my description.
+
+### Customizing you site
+I have not spent much time customizing the site yet. But we can start by modifying the files in the layout folder and updating the config.yml file.
+
 
 [Jekyll-and-Pages]: https://help.github.com/articles/using-jekyll-with-pages/
 [github-pages-doc]: https://pages.github.com/
