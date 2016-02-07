@@ -9,7 +9,7 @@ After a long detour into the world of functional programming based on Haskell (y
 
 In this series of blogs I will outline some insights that document my learning process and hope that it will be a useful introduction to Elm and Functional Reactive programming for all.
 
-Elm is a functional, ML like language and at least for me I found the transition to Elm from from Haskell fairly easy.
+Elm is a functional, ML like language and at least for me I found the transition to Elm from Haskell fairly easy.
 
 So let us start with the customary Hello World program.
 {% highlight Haskell %}
