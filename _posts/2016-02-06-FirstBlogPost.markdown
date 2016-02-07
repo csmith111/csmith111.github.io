@@ -22,15 +22,6 @@ main =
 
 {% endhighlight %}
 
-```
-import Html
-import Html.Attributes exposing (class)
-
-main =
-    Html.span [class "welcome-message"] [Html.text "Hello, World!"]
-```
-
-
 Check out the [online editor/runner.][try-elm] to run all the code samples without an install.
 You will find all the documentation of the core libraries at [Elm core website][elm-core]. And finally if you need packages or info on packages you can find it [here][elm-packages].
 
