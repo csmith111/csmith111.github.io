@@ -54,23 +54,23 @@ That is all there is to it!
 
 You will find the complete documentation for the Graphics.Collage package at this [link][elm-graphics-collage]
 
+### More Shapes
+
+Let us create a few more shapes using functions that are defined in Graphics-Collage. The shapes we will consider are:
+
+* Triangle
+* Rectangle
+* NGon with n sides
+* NGon with n vertices
+
 {% highlight Haskell %}
-import Color exposing (..)
-import Graphics.Element exposing (..)
-import Graphics.Collage exposing (..)
-import List exposing (..)
-
-main : Element
-main =
-  collage 300 300
-    [makePolygon blue vertices, makeSquare red 50]
-
 --Simple Shapes
 makeSquare color size =
   filled color (square size)
 
 makeTriangle color size =
   filled color (ngon 3 size)
+
 makeRectangle color length width =
   filled color (rect length width)
 
@@ -88,7 +88,11 @@ vertices = [  (0,0)
             , (20,50)
             , (80,50)
             ]
+{% endhighlight %}
 
+### Shapes with Fills and Outlines
+
+{% highlight Haskell %}
 -- Building up simple filled and outlined squares
 makeSquareFilled : Color.Color -> Float -> Graphics.Collage.Form
 makeSquareFilled color size =
@@ -102,6 +106,14 @@ makeSquareOutlined color size =
 
 {% endhighlight %}
 
+### Transforming Shapes
+
+Now that we have a set of shapes to work with we can look at functions that transform them.
+
+
+### Using transformations of a Triangle to make a Star
+
+Once we understand transformations we can use them to create more complex shapes and figures.
 
 {% highlight Haskell %}
 import Color exposing (..)
@@ -120,11 +132,6 @@ triangle color size angle =
   |>filled color
   |> rotate (degrees angle)
 --  |> move (10, -50)
-
-diamond color size angle =
-  square size
-  |>filled color
-  |> rotate (degrees angle)
 
 star color = map2 (triangle color) [100,100] [30, 90]
 {% endhighlight %}
