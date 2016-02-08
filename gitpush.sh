@@ -1,3 +1,4 @@
+echo enter commitLabel:
 git add --all
-git commit -m "updated posts"
+git commit -m $:commitLabel
 git push -u origin master
