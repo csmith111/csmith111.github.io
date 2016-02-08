@@ -36,10 +36,10 @@ Now let us look at the function "main" what is does is to construct a graphics e
 
 We need to understand two more functions to get the full picture
 
-* First we create a Shape using the function square which creates a square with the given edge length (side).
+* First we create a Shape using the function `square` which creates a square with the given edge length (side).
 `square : Float -> Shape`
 
-* Then we pass this Shape to the function filled which takes the Shape and a color and returns a Form which can be passed to collage.
+* Then we pass this Shape to the function `filled` which takes the Shape and a color and returns a Form which can be passed to collage.
 `filled : Color -> Shape -> Form`
 
 That is all there is to it!
