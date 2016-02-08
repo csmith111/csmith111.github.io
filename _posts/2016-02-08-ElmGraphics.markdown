@@ -30,7 +30,7 @@ Now let us see if we can understand how this code works.
 
 At the top of the code you are seeing a set of import statements, that allows the elm compiler to include all the packages containing the functions we want to use. In this case the packages are Color, Graphics.Element  and Graphics.Collage.
 
-Now let us look at the function "main" what is does is to construct a graphics element which can be displayed. The graphics element is constructed by calling the function collage which takes two integers (which define the dimensions of the collage) and a list of Form objects that it then converts to graphics Elements. The signature of the collage function which makes all this explicit is as follows:
+Now let us look at the function `main` what is does is to construct a graphics element which can be displayed. The graphics element is constructed by calling the function collage which takes two integers (which define the dimensions of the collage) and a list of Form objects that it then converts to graphics Elements. The signature of the collage function which makes all this explicit is as follows:
 
 `collage : Int -> Int -> List Form -> Element`
 
@@ -48,7 +48,9 @@ That is all there is to it!
 
 1. Try changing colors and sizes on the square to see how this all works.
 
-2. Using the documentation see if you can create a red circle
+2. Using the documentation see if you can create a red circle. (Hint: Create a new function makeCircle similar to makeSquare.)
+
+3. Try and make a blue square of side 40 and a circle of radius 60. (Hint: collage will accept a list of Shape Forms.)
 
 You will find the complete documentation for the Graphics.Collage package at this [link][elm-graphics-collage]
 
