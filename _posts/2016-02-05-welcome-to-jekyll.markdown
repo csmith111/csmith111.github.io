@@ -64,7 +64,7 @@ git commit - m "Initial commit"
 git push -u origin master
 {% endhighlight %}
 
-If all this hocus pocus worked you should be able to navigate to
+If all these steps worked you should be able to navigate to
 `https://github.com/username.github.io` and see your blog is live!
 
 Essentially create a Gemfile with
