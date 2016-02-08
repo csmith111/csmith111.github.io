@@ -136,9 +136,12 @@ Your markdown content goes here...
 Finally you need to create an index.html file that will be the file that github directs you to when you go to
 `https://github.com/username.github.io`. We had already done this earlier but now we need to update this file so it provides the links to all the static files you have generate.
 
-I completely missed this step and spent a lot of time hacking. I sent a note to GitHub and was pleasantly surprised by a response the next day pointing me to an example index.html file that does this.
-
-Here's a fairly simple example:[index.html][index-sample]
+I completely missed this step and spent a lot of time hacking but failed to succeed in seeming the generated pages. I sent a note to GitHub and was pleasantly surprised by a response the next day from John Greet (GitHub staff) helping me resolve the issue. (It is amazing how little we appreciate the value of good support, so thank you John!)
+The two points he made was that the generated site pages go to standard locations like:
+`https://username.github.io/jekyll/update/2016/02/06/FirstBlogPost.html` which mirror the structure of the sites directory or the output of the Jekyll build.
+So you can always access the pages from there. However a cleaner solution is to create an index.html file that points to the correct locations. You place the index.html at the root of the directory and now you access this index.html from: `https://username.github.io/`.
+John directed me to a fairly simple example:[index.html][index-sample]
+and I was good to go.
 
 ### Push your content to GitHub
 Create a .gitignore file which contains a list of files/folder you
