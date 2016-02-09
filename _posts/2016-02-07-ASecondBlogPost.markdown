@@ -51,14 +51,18 @@ isEven : Int -> Bool
 isEven n =
    n % 2 == 0
 
-main = show [print "The sqr of 5 is : " (sqr 5)
-        ,print "40 degrees centigrade is : " (centigradeToFahrenheit 40)
+increment : number -> number
+increment n = n+1
+
+main = flow down [print "The sqr of 5 is : " (sqr 5)
+        ,print "40 degrees centigrade in Fahrenheit is : " (centigradeToFahrenheit 40)
         ,print "Is 5 an even number : " (isEven 5)
         ,print "3 + 2 is : " (add 3 2)
+        ,print "incrementing 5 we get : " (increment 5)
         ]
 
 --a helper function to make display easier
-print message value = (message ++ (toString value))
+print message value = show (message ++ (toString value))
 
 {% endhighlight %}
 
@@ -87,72 +91,109 @@ main = print "Testing for Palindrome : " (isPalindrome "madamimadam")
 print message value = show (message ++ (toString value))
 {% endhighlight %}
 
-## Function Composition
+
 
 ## Recursive Functions
 
+Recursive Functions are simply functions that call themselves in their definition. Recursion is a powerful technique to solve problems in an intuitive and compact manner. The common example used to illustrate this is the factorial function:
+$$ n! = n*(n-1)!$$. As you can see the definition of the function refers to itself. This is natural to do in mathematics, can we do the same in an Elm program? The answer is  yes.. Let us see how this looks.
+
+
 {% highlight Haskell %}
-
-sqr : number -> number
-sqr n =
-  n*n
-
-
-isEven : Int -> Bool
-isEven n =
-  n % 2 == 0
+import Graphics.Element exposing (..)
+import List exposing (..)
 
 --Recursion
 facR : Int -> Int
 facR n =
-  if n < 1 then 1 else n*facR(n-1)
+  if n < 1 then
+    1
+  else
+    n*facR(n-1)
 
---pattern matching and Recursion
-fac : Int -> Int
-fac n =
-  case n of
-    0 -> 0
-    1 -> 1
-    _     -> n * fac (n-1)
-
-fib : Int -> Int
-fib n =
+hemachandra : Int -> Int
+hemachandra n =
   case n of
     0 -> 1
     1 -> 1
-    _ -> fib (n-1) + fib (n-2)
+    _ -> hemachandra (n-1) + hemachandra (n-2)
 
-len xs = case xs of
-  x::xs -> 1 + len xs
+main = flow down [print "factorial(5) is : " (facR 5)
+        ,print "The 5'th Hemachandra number is : " (hemachandra 5)
+        ]
+
+--a helper function to make display easier
+print message value = show (message ++ (toString value))
+{% endhighlight %}
+
+### Pattern Matching
+
+{% highlight Haskell %}
+import Graphics.Element exposing (..)
+import List exposing (..)
+--pattern matching and Recursion
+facP : Int -> Int
+facP n =
+  case n of
+    0 -> 0
+    1 -> 1
+    _ -> n * facP (n-1)
+
+length : List number -> number
+length xs = case xs of
+  x::xs -> 1 + length xs
   []    -> 0
 
+main = flow down [
+    print "factorial(5) using recursion is : " (facP 5)
+  , print "The length of the list [1,2,3] is : " (length [1..3])]
 
+--a helper function to make display easier
+print message value = show (message ++ (toString value))
+{% endhighlight %}
+
+## Pattern Matching on Lists
+
+{% highlight Haskell %}
+import Graphics.Element exposing (..)
+import List exposing (..)
+--pattern matching on lists
+--length :: List a -> a
+length xs = case xs of
+    x::xs -> 1 + length xs
+    []    -> 0
+
+--reverse :: List a-> List a
+reverse xs = case xs of
+  x::xs -> (reverse xs)++[x]
+  [] -> []
+
+head xs = case xs of
+  x::xs -> x
+  [] -> 0
+
+main =
+  flow down [print "The head element of the list [2..5] is : " (head [1..5])
+  ,print "The reversed elements of the list [2..5] is : " (reverse [1..5])
+  ]
+
+print message value = show (message ++ (toString value))
+{% endhighlight %}
+
+## Higher Order Functions - Maps and Folds
+
+{% highlight Haskell %}
+import Graphics.Element exposing (..)
+import List exposing (..)
 sumList : number -> List number -> number
 sumList init =
-  foldr (+) init
+  List.foldr (+) init
 
-
-print value =
-  Html.div [][ Html.text <| toString value, Html.br [][]]
-
-printM message value =
-  Html.div [][ Html.text <| message, Html.text <| toString value, Html.br [][]]
-
-
-main : Html.Html
-main =
-    Html.p []
-    [ printM "The square of 5 is: " (sqr 5)
-    , printM "The square of numbers from [1..10] is : " (map sqr [1..10])
-    , printM "The square of numbers from [1..10] is : " (map ((^)2) [1..10])
-    , printM "Is 3 even:" (isEven 3)
-    , printM "The square of odd numbers from [1..10] is : " (filter isEven [1..10])
-    , printM "The sum of all the numbers from [1..100] is : " (sumList 0 [1..10])
-    , printM "factorial(5) is : " (fac 5)
-    , printM "fibonacci(5) is : " (fib 5)
-    , printM "The length of the list [1,2,3] is :" (len [1..3])
-    ]
-
+print message value = show (message ++ (toString value))
 {% endhighlight %}
+
+## Function Composition
+
+
 
 [try-elm]: http://elm-lang.org/try

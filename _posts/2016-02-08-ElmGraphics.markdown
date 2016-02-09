@@ -115,6 +115,10 @@ main =
 
 {% endhighlight %}
 
+### Exercises
+
+1. Write code the makes a square with a `dashed` outline.
+(Hint you can use the function `dashed` instead of )
 
 ### Transforming Shapes
 
