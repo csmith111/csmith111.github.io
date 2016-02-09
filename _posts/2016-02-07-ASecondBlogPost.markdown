@@ -66,16 +66,17 @@ Okay time to make some functions of your own.
 
 ### Exercises
 
-1. Create the functions `subtract`, `divide`, `multiply` just like we did the add function.
+1. Create the functions `subtract`, `divide`, `multiply` just like we did the `add` function.
 
 2. Create a function to convert from kilograms to pounds.
 
-3. Slightly more challenging create a function to check if a string is a palindrome. (Hint: there is a function called reverse that you can use. In case you are stuck you can see the solution below.)
+3. Slightly more challenging create a function to check if a string is a palindrome. (Hint: there is a function called `reverse` that you can use. In case you are stuck you can see the solution below.)
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
 import String exposing (..)
---defining the function double
+
+--defining the function is Palindrome
 isPalindrome : String -> Bool
 isPalindrome aString =
   aString == reverse aString
@@ -86,7 +87,7 @@ main = print "Testing for Palindrome : " (isPalindrome "madamimadam")
 print message value = show (message ++ (toString value))
 {% endhighlight %}
 
-## Function composition
+## Function Composition
 
 ## Recursive Functions
 

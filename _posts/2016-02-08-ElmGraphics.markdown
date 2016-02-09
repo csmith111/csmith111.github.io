@@ -27,14 +27,13 @@ makeSquare color size =
 You can just enter this code in the [online editor/runner.][try-elm]
 
 Now let us see if we can understand how this code works.
-
 At the top of the code you are seeing a set of import statements, that allows the elm compiler to include all the packages containing the functions we want to use. In this case the packages are Color, Graphics.Element  and Graphics.Collage.
 
-Now let us look at the function `main` what is does is to construct a graphics element which can be displayed. The graphics element is constructed by calling the function collage which takes two integers (which define the dimensions of the collage) and a list of Form objects that it then converts to graphics Elements. The signature of the collage function which makes all this explicit is as follows:
+Now let us look at the function `main` what it does is to construct a graphics Element which then gets displayed. The graphics Element is constructed by calling the function `collage` which takes as input two integers (which define the dimensions of the collage) and a list of Form objects that it then converts to graphics Elements. The signature of the collage function which makes all this explicit is as follows:
 
 `collage : Int -> Int -> List Form -> Element`
 
-We need to understand two more functions to get the full picture
+We need to understand two more functions to get the full picture:
 
 * First we create a Shape using the function `square` which creates a square with the given edge length (side).
 `square : Float -> Shape`
@@ -90,21 +89,32 @@ vertices = [  (0,0)
             ]
 {% endhighlight %}
 
+### Exercises
+
+1. Write code that makes a blue pentagon.
+
+2. Write code to make a red hexagon.
+
 ### Shapes with Fills and Outlines
 
+So far we looked at shapes which were filled with a chosen color. But we can also make figure with outlines as shown below:
+
 {% highlight Haskell %}
--- Building up simple filled and outlined squares
-makeSquareFilled : Color.Color -> Float -> Graphics.Collage.Form
-makeSquareFilled color size =
- square size
- |>filled color
+import Color exposing (..)
+import Graphics.Element exposing (..)
+import Graphics.Collage exposing (..)
 
 makeSquareOutlined : Color.Color -> Float -> Graphics.Collage.Form
 makeSquareOutlined color size =
  square size
  |>outlined (solid color)
 
+main =
+  collage 300 300
+    [makeSquareOutlined blue 50]
+
 {% endhighlight %}
+
 
 ### Transforming Shapes
 
