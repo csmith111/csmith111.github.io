@@ -53,7 +53,7 @@ isEven n =
 
 main = show [print "The sqr of 5 is : " (sqr 5)
         ,print "40 degrees centigrade is : " (centigradeToFahrenheit 40)
-        ,print "Is 5 even : " (isEven 5)
+        ,print "Is 5 an even number : " (isEven 5)
         ,print "3 + 2 is : " (add 3 2)
         ]
 
@@ -66,15 +66,41 @@ Okay time to make some functions of your own.
 
 ### Exercises
 
-1. Create the functions subtract, divide, multiply just like we did the add function.
+1. Create the functions `subtract`, `divide`, `multiply` just like we did the add function.
 
 2. Create a function to convert from kilograms to pounds.
 
-3. Slightly more challenging create a function to check if a string is a palindrome. (Hint: there is a function called reverse that you can use.)
+3. Slightly more challenging create a function to check if a string is a palindrome. (Hint: there is a function called reverse that you can use. In case you are stuck you can see the solution below.)
+
+{% highlight Haskell %}
+import Graphics.Element exposing (..)
+import String exposing (..)
+--defining the function double
+isPalindrome : String -> Bool
+isPalindrome aString =
+  aString == reverse aString
+
+main = print "Testing for Palindrome : " (isPalindrome "madamimadam")
+
+--a helper function to make display easier
+print message value = show (message ++ (toString value))
+{% endhighlight %}
+
+## Function composition
 
 ## Recursive Functions
 
 {% highlight Haskell %}
+
+sqr : number -> number
+sqr n =
+  n*n
+
+
+isEven : Int -> Bool
+isEven n =
+  n % 2 == 0
+
 --Recursion
 facR : Int -> Int
 facR n =
