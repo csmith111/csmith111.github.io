@@ -6,7 +6,7 @@ summary:  In this post we will look at the basics of Elm. Most of this should be
 categories: jekyll update
 ---
 
-In this post we will look at the basics of programming in Elm also some of the concepts of Functional programming.
+In this post we will look at the basics of programming in Elm. We will also encounter some of the essential concepts of Functional programming.
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
@@ -127,3 +127,5 @@ main =
     ]
 
 {% endhighlight %}
+
+[try-elm]: http://elm-lang.org/try
