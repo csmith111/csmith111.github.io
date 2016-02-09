@@ -101,8 +101,8 @@ makeSquareFilled color size =
 
 makeSquareOutlined : Color.Color -> Float -> Graphics.Collage.Form
 makeSquareOutlined color size =
-  square size
-  |>outlined (solid color)
+ square size
+ |>outlined (solid color)
 
 {% endhighlight %}
 
@@ -111,7 +111,7 @@ makeSquareOutlined color size =
 Now that we have a set of shapes to work with we can look at functions that transform them.
 
 
-### Using transformations of a Triangle to make a Star
+### Making a Star - using triangles and transformations
 
 Once we understand transformations we can use them to create more complex shapes and figures.
 
