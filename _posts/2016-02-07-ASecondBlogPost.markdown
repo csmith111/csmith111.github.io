@@ -93,11 +93,10 @@ print message value = show (message ++ (toString value))
 
 
 
-## Recursive Functions
+### Recursive Functions
 
-Recursive Functions are simply functions that call themselves in their definition. Recursion is a powerful technique to solve problems in an intuitive and compact manner. The common example used to illustrate this is the factorial function:
-$$ n! = n*(n-1)!$$. As you can see the definition of the function refers to itself. This is natural to do in mathematics, can we do the same in an Elm program? The answer is  yes.. Let us see how this looks.
-
+Recursive functions are simply functions that refer to/call themselves in their definition. Recursion is a powerful technique to solve problems in an intuitive and compact manner. The common example used to illustrate this is the factorial function:
+$$ n! = n*(n-1)!$$. (Okay for those of you interested in mathematics and typesetting to see the previous expression, we have to get $\LaTeX$ working! Latex, Javascript, Jekyll and markdown can all work with each other is something incredible. The fact that I was about to get it up an running in a few minutes is amazing!) As you can see the definition of the function refers to itself. This is natural to do in mathematics, can we do the same in an Elm program? The answer is  yes. Let us see how this looks.
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
@@ -113,10 +112,12 @@ facR n =
 
 hemachandra : Int -> Int
 hemachandra n =
-  case n of
-    0 -> 1
-    1 -> 1
-    _ -> hemachandra (n-1) + hemachandra (n-2)
+  if n==0 then
+     1
+  else if  n==1 then
+     1
+  else
+   hemachandra (n-1) + hemachandra (n-2)
 
 main = flow down [print "factorial(5) is : " (facR 5)
         ,print "The 5'th Hemachandra number is : " (hemachandra 5)
@@ -125,6 +126,15 @@ main = flow down [print "factorial(5) is : " (facR 5)
 --a helper function to make display easier
 print message value = show (message ++ (toString value))
 {% endhighlight %}
+
+The recursion pattern has two ingredients:
+
+* The termination condition: Need to handle all conditions that the recursion has to terminate for. For the factorial function it is when n gets to 0 we terminate the recursion. For those using recursion this is often the source of bugs, which leads to infinite recursion and program crashes!  
+* The recursive step: For all values of n other than the terminal one we describe how to compute  the next value.
+
+The second example that I have included generates the [Fibonacci numbers][fib-ref]. These numbers we noticed much earlier by [Hemachandra][Hemachandra-ref].
+Fields medallist [Manjul Bhargava][Manjul] has been referring to the Hemanchandra numbers and how he was [inspired by ancient indian mathematicians][Manjul-Hema]. So we called the function `hemachandra` in this example.
+
 
 ### Pattern Matching
 
@@ -152,35 +162,52 @@ main = flow down [
 print message value = show (message ++ (toString value))
 {% endhighlight %}
 
-## Pattern Matching on Lists
+### Pattern Matching on Lists
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
 import List exposing (..)
---pattern matching on lists
---length :: List a -> a
+
+length : List a -> number
 length xs = case xs of
     x::xs -> 1 + length xs
     []    -> 0
 
---reverse :: List a-> List a
+reverse : List a -> List a
 reverse xs = case xs of
   x::xs -> (reverse xs)++[x]
   [] -> []
 
+head : List number -> number
 head xs = case xs of
   x::xs -> x
   [] -> 0
 
 main =
-  flow down [print "The head element of the list [2..5] is : " (head [1..5])
+  flow down [print "The length the list [2..10] is : " (length [1..10])
   ,print "The reversed elements of the list [2..5] is : " (reverse [1..5])
+  ,print "The head element of the list [2..5] is : " (head [1..5])
+  ,print "The first 2 elements of the list [1..5] is : " (take 2 [1..5])
   ]
 
 print message value = show (message ++ (toString value))
 {% endhighlight %}
 
-## Higher Order Functions - Maps and Folds
+### Exercises
+
+1. Implement the function `take n ys` that returns the first $n$ elements of the list of $ys$.
+
+In case you want to just look at the solution here it is.
+{% highlight Haskell %}
+take:number -> List a -> List a
+take m ys =
+  case (m,ys) of
+   (0,_) ->  []
+   (_, [])->  []
+   (n,x::xs) ->  [x] ++ take (n-1) xs
+{% endhighlight %}
+
+### Higher Order Functions - Maps, Filters and Folds
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
@@ -192,8 +219,12 @@ sumList init =
 print message value = show (message ++ (toString value))
 {% endhighlight %}
 
-## Function Composition
+### Function Composition and Pipes
 
 
 
 [try-elm]: http://elm-lang.org/try
+[fib-ref]:https://en.wikipedia.org/wiki/Fibonacci_number
+[Hemachandra-ref]:https://en.wikipedia.org/wiki/Hemachandra
+[Manjul-Hema]:https://www.youtube.com/watch?v=siFBqH-LaQQ
+[Manjul]:https://en.wikipedia.org/wiki/Manjul_Bhargava
