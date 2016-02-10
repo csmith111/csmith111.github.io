@@ -134,6 +134,10 @@ The recursion pattern has two ingredients:
 The second example that I have included generates the [Fibonacci numbers][fib-ref]. These numbers we noticed much earlier by [Hemachandra][Hemachandra-ref].
 Fields medallist [Manjul Bhargava][Manjul] has been referring to the Hemanchandra numbers and how he was [inspired by ancient indian mathematicians][Manjul-Hema]. So we called the function `hemachandra` in this example.
 
+While recursion is a good technique to use to solve problems,
+often in programs we just end up combining library functions to write our code. So we could write the factorial function as
+`factorial n = product [1..n]`.
+
 ### Exercises
 
 * Define a recursive function `power` such that `power x y` raises `x` to the `y` power.
@@ -190,12 +194,10 @@ reverse xs = case xs of
   [] -> []
   x::xs -> (reverse xs)++[x]
 
-
 head : List number -> number
 head xs = case xs of
   [] -> 0
   x::xs -> x
-
 
 main =
   flow down [print "The length the list [2..10] is : " (length [1..10])
@@ -233,7 +235,6 @@ import List exposing (..)
 
 firstTenPowersOfTwo = map ((^)2) [1..10]
 
-
 sumList : number -> List number -> number
 sumList initialValue =
   List.foldr (+) initialValue
@@ -270,6 +271,8 @@ print message value = show (message ++ (toString value))
 ### Exercises
 
 * Define an anonymous function and use it to double all the elements of a list.
+
+### Closures and Currying
 
 ### Function Composition and Pipes
 

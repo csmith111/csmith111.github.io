@@ -62,12 +62,13 @@ astyledMessage =
 helloWorldPic =
   img [src "http://sourcefed.com/wp-content/uploads/2014/12/world.jpg"
    ,style
-       [("width",  "400px")
+     [("width",  "400px")
         ,("height", "400px")
-       ]
+     ]
   ][]
 
 main =div[][astyledMessage, helloWorldPic]
+
 {% endhighlight %}
 
 Okay so this post should have given you some flavor of the representation of Html with a DSL. For those who know HTML this is no big deal, but it lays the foundation for being able to generate and manipulate HTML and the DOM tree programmatically.
