@@ -5,7 +5,6 @@ date:   2016-02-07 13:00:28 -0500
 summary:  In this post we will look at the basics of Elm. Most of this should be familiar to someone with a functional programming background like Haskell, but the syntax is slightly different.
 categories: jekyll update
 ---
-
 In this post we will look at the basics of programming in Elm. We will also encounter some of the essential concepts of Functional programming.
 
 {% highlight Haskell %}
@@ -129,14 +128,28 @@ print message value = show (message ++ (toString value))
 
 The recursion pattern has two ingredients:
 
-* The termination condition: Need to handle all conditions that the recursion has to terminate for. For the factorial function it is when n gets to 0 we terminate the recursion. For those using recursion this is often the source of bugs, which leads to infinite recursion and program crashes!  
-* The recursive step: For all values of n other than the terminal one we describe how to compute  the next value.
+* **The termination condition:** Need to handle all conditions that the recursion has to terminate for. For the factorial function it is when n gets to 0 we terminate the recursion. For those using recursion this is often the source of bugs, which leads to infinite recursion and program crashes!  
+* **The recursive step:** For all values of n other than the terminal one we describe how to compute  the next value.
 
 The second example that I have included generates the [Fibonacci numbers][fib-ref]. These numbers we noticed much earlier by [Hemachandra][Hemachandra-ref].
 Fields medallist [Manjul Bhargava][Manjul] has been referring to the Hemanchandra numbers and how he was [inspired by ancient indian mathematicians][Manjul-Hema]. So we called the function `hemachandra` in this example.
 
+### Exercises
+
+* Define a recursive function `power` such that `power x y` raises `x` to the `y` power.
 
 ### Pattern Matching
+
+The technique of using pattern matching to
+to implement logic in your code is a very standard technique in functional programming. In some sense it is a very natural way to have different code to handle different *patterns*.
+There are quite a few different things that you can use as patterns:
+
+* Values
+* Types
+* Guards/Expression
+* special patterns related to data structures (like [],(x::xs) for lists)
+
+Right now let us use pattern matching on values.
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
@@ -149,11 +162,6 @@ facP n =
     1 -> 1
     _ -> n * facP (n-1)
 
-length : List number -> number
-length xs = case xs of
-  x::xs -> 1 + length xs
-  []    -> 0
-
 main = flow down [
     print "factorial(5) using recursion is : " (facP 5)
   , print "The length of the list [1,2,3] is : " (length [1..3])]
@@ -162,26 +170,32 @@ main = flow down [
 print message value = show (message ++ (toString value))
 {% endhighlight %}
 
+As you can see from the code above there are three patterns that are tested against the current value of `n` either `n` is 0, 1 or *any other value*.
+
 ### Pattern Matching on Lists
+
+Combining recursion with pattern matching on lists gives us the technique to write many interesting functions. Here we have shown three functions (`length`, `reverse`, `head`) for you to review.
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
 import List exposing (..)
 
 length : List a -> number
-length xs = case xs of
-    x::xs -> 1 + length xs
+length xs = case xs of    
     []    -> 0
+    x::xs -> 1 + length xs
 
 reverse : List a -> List a
 reverse xs = case xs of
-  x::xs -> (reverse xs)++[x]
   [] -> []
+  x::xs -> (reverse xs)++[x]
+
 
 head : List number -> number
 head xs = case xs of
-  x::xs -> x
   [] -> 0
+  x::xs -> x
+
 
 main =
   flow down [print "The length the list [2..10] is : " (length [1..10])
@@ -193,11 +207,13 @@ main =
 print message value = show (message ++ (toString value))
 {% endhighlight %}
 
+
 ### Exercises
 
 1. Implement the function `take n ys` that returns the first $n$ elements of the list of $ys$.
 
 In case you want to just look at the solution here it is.
+
 {% highlight Haskell %}
 take:number -> List a -> List a
 take m ys =
@@ -209,15 +225,51 @@ take m ys =
 
 ### Higher Order Functions - Maps, Filters and Folds
 
+Higher order functions is a fancy term for functions that take other functions as parameter. Having said that there is an interesting way to look at this as a paradigm shift in the way we think about functions. The normal way we use functions is to say to the function here is some **data** (parameters) can you please run yourself on my data. On the other hand with higher order functions you are saying here is some **code** can you please run this **code** for me in **your context**.
+
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
 import List exposing (..)
+
+firstTenPowersOfTwo = map ((^)2) [1..10]
+
+
 sumList : number -> List number -> number
-sumList init =
-  List.foldr (+) init
+sumList initialValue =
+  List.foldr (+) initialValue
+
+main =
+  flow down [print "The first ten powers of 2 are : "    firstTenPowersOfTwo
+   ,print "The sum of the elements of the list [1..10] : " (sumList 0 [1..10])
+  ]
+
+print message value = show (message ++ (toString value))
+
+{% endhighlight %}
+
+### Anonymous Functions
+
+Before we get to using higher order functions we need to introduce the concept of anonymous functions. Anonymous functions (also called lambda functions) are used to define functions locally so they do not even have a name (hence anonymous) so they can be passed as parameters to other functions.  
+Here are a couple of examples:
+
+{% highlight Haskell %}
+import Graphics.Element exposing (..)
+import List exposing (..)
+
+--binnding an anonymous function to a variable
+addExclaim = \s -> s ++ "!"
+
+main =
+  flow down [print " add an ! to Hello : "  (addExclaim "hello")
+   ,print "the square of the first 10 numbers : " (map (\n -> n*n) [1..10])
+  ]
 
 print message value = show (message ++ (toString value))
 {% endhighlight %}
+
+### Exercises
+
+* Define an anonymous function and use it to double all the elements of a list.
 
 ### Function Composition and Pipes
 
