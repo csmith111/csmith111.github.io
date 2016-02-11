@@ -16,7 +16,7 @@ import Html.Attributes exposing (..)
 import Mouse
 
 
-animatedYogi w =
+animatedImage w =
   img
     [src "http://elm-lang.org/imgs/yogi.jpg"
     ,style
@@ -24,11 +24,16 @@ animatedYogi w =
        ]
     ][]
 
-main = Signal.map animatedYogi Mouse.x
+main = Signal.map animatedImage Mouse.x
 
 {% endhighlight %}
 
-Try this out by pasting this code in the [online editor/runner.][try-elm]
+Try this out by pasting this code in the [online editor/runner.][try-elm] You should see that the image size is animated based on the x coordinate of the Mouse withing the window.
+
+Let us see if we can understand this code. The first thing is to create a function that displays an image (Feel free to replace this image with any image you like to animate and continue the exercises). This function `animatedImage` takes one parameter as input which set the width of the the image. 
+
+Now in order to animate it we need to map this function over a Signal that contains your mouse x coordinates. But we know how to do that from our examples using Signals; just use Signal.map.  
+
 
 
 [Signals-elm-lang]:http://elm-lang.org/guide/reactivity#signals
@@ -36,16 +41,3 @@ Try this out by pasting this code in the [online editor/runner.][try-elm]
 [Time Docs]:http://package.elm-lang.org/packages/elm-lang/core/3.0.0/Time#fps
 [try-elm]: http://elm-lang.org/try
 [SignalModule]:http://package.elm-lang.org/packages/elm-lang/core/3.0.0/Signal
-
-
-Okay…so here is the email… Let me know if you get it.
-It was so nice to talk to you again after such a long time.. apologies if my timing was not good?!
-So much to talk about..
-
-Recall a line from the arjit singh song…(have you heard it)
-"Kya uss gali mein kabhi tera jaana hua
-Jahaan se zamaane ko guzre zamaana hua
-Mera samay toh wahin pe hai thehra hua
-Bataaun tumhe kya mere sath kya cya hua"
-
-It was nice to hear your voice again...
