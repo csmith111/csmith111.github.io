@@ -173,9 +173,78 @@ git push -u origin master
 
 If you are seeing this page, then all of the above described magic worked! I would love it if you could try this out and let me know if there are any inaccuracies in my description.
 
-### Customizing you site
+### Customizing your site
+
 I have not spent much time customizing the site yet. But we can start by modifying the files in the layout folder and updating the config.yml file.
 
+### Getting Math equations to display
+
+This was another adventure for me, that worked out fine in the end.
+
+I used the config recommended by cwoebker[cwoebker]:
+Although he uses rdisount instead of kramdown.
+
+The is a [link on the Jekyll site that refers to mathJax][JekyllMathJax]essentially points to:
+[a page by Gaston Sanchez][GastonSanchez]
+ which currently seems to be broken in terms of the equations not working correctly?
+
+Anyway all I did was include the following in my post.html file in the `_layouts` folder.
+
+{% highlight html%}
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        jax: ["input/TeX","output/HTML-CSS"],
+        extensions: ["tex2jax.js"],
+        tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+        },
+    });
+    </script>
+
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+        }
+    });
+
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+    </script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            jax: ["input/TeX","output/HTML-CSS"],
+            extensions: ["tex2jax.js"],
+            tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true
+            },
+        });
+        </script>
+
+        <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
+        });
+
+        MathJax.Hub.Queue(function() {
+            var all = MathJax.Hub.getAllJax(), i;
+            for(i=0; i < all.length; i += 1) {
+                all[i].SourceElement().parentNode.className += ' has-jax';
+            }
+        });
+        </script>
+{% endhighlight %}
 
 [Jekyll-and-Pages]: https://help.github.com/articles/using-jekyll-with-pages/
 [github-pages-doc]: https://pages.github.com/
@@ -187,3 +256,7 @@ I have not spent much time customizing the site yet. But we can start by modifyi
 [Jekyll-tips-blogging]:http://jekyll.tips/guide/blogging/
 [GHPages-Gem]:https://github.com/github/pages-gem
 [index-sample]:[https://github.com/kneath/kneath.github.com/blob/master/index.html
+
+[cwoebker]:http://cwoebker.com/posts/latex-math-magic
+[JekyllMathJax]:http://jekyllrb.com/docs/extras/#math-support
+[GastonSanchez]:http://gastonsanchez.com/opinion/2014/02/16/Mathjax-with-jekyll/
