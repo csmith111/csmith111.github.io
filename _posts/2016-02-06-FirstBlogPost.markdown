@@ -2,13 +2,13 @@
 layout: post
 title:  "Functional Reactive Programing with Elm: Part I - HTML"
 date:   2016-02-06 13:00:28 -0500
-summary:  I am recording my experiences using Elm. I hope that you will be able to experiment with Elm and explore the possibilities of simplifying the code we use to create user interfaces using functional languages to provide composition and functional reactive programing to manage interactivity.
+summary:  I am writing up and introduction to Elm based on isights from my experiences working with Elm (and Haskell/F# earlier). I hope that you will be able to use these posts to experiment with Elm to explore the possibilities of simplifying the code we use to create user interfaces. Using functional languages like Elm which naturally provide composition and functional reactive programing to manage interactivity seems like a good step forward in making rich interactive user interfaces.
 categories: jekyll update
 ---
 
-After a long detour into the world of functional programming based on Haskell (yes that does mean some Category theory and Monads too, which I will blog about later), I came across a talk by [Evan Czaplicki][Czaplicki-talk] and decided to explore Elm.
+After a long detour into the world of functional programming based on Haskell (yes that does mean some Category theory and Monads too (!)!). I will blog about this later.), I came across a talk by [Evan Czaplicki][Czaplicki-talk] and decided to explore Elm.
 
-In this series of blogs I will outline some insights that I have gleaned from listening to Evan (who is a very effective speaker) and working through the code examples in the documentation. I hope that it will be a useful introduction to Elm and Functional Reactive programming.
+In this series of blogs I will outline some insights that I have gleaned from listening to Evan (who is a very effective speaker) and working through the code examples are reading the documentation. I hope that it will be a useful introduction to Elm and Functional Reactive programming.
 
 Elm is a functional, ML like language and I found the transition to Elm from Haskell fairly easy. The ease with which you could create performant, modular/composable user interfaces with Elm was what I found most interesting.
 
@@ -72,6 +72,7 @@ main =div[][astyledMessage, helloWorldPic]
 {% endhighlight %}
 
 Okay so this post should have given you some flavor of the representation of Html with a DSL. For those who know HTML this is no big deal, but it lays the foundation for being able to generate and manipulate HTML and the DOM tree programmatically.
+I will add more information on using HTML to make interactive web pages later. 
 
 [try-elm]: http://elm-lang.org/try
 [elm-core]:http://package.elm-lang.org/packages/elm-lang/core/3.0.0/
