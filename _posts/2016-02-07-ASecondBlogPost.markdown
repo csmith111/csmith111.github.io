@@ -248,6 +248,28 @@ print message value = show (message ++ (toString value))
 
 {% endhighlight %}
 
+### Exercises
+
+* Implement the cartesian product of two lists. Given two lists
+`l1= [1,2,3] l2=[1,2,3,4]` output the list `l3= [(1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(2,4),(3,1),(3,2),(3,3),(3,4)]`
+(This exercise was suggested to me by [my friend][Vinay], and it really illustrates how difficult it is to code until you have mastered the functional programming idioms.)
+
+{% highlight Haskell %}
+import Graphics.Element exposing (..)
+import List exposing (..)
+
+main = show l3
+
+l1 =[1..3]
+l2=[1..4]
+
+cartesianProduct listOfFuncs alist = concatMap (\f -> map f alist) listOfFuncs
+
+l3 = cartesianProduct (map (,) l1) l2
+{% endhighlight %}
+
+You should look up the definition of concatMap and other functions defined in the [List module][list docs].
+
 ### Anonymous Functions
 
 Before we get to using higher order functions we need to introduce the concept of anonymous functions. Anonymous functions (also called lambda functions) are used to define functions locally so they do not even have a name (hence anonymous) so they can be passed as parameters to other functions.  
@@ -283,3 +305,5 @@ print message value = show (message ++ (toString value))
 [Hemachandra-ref]:https://en.wikipedia.org/wiki/Hemachandra
 [Manjul-Hema]:https://www.youtube.com/watch?v=siFBqH-LaQQ
 [Manjul]:https://en.wikipedia.org/wiki/Manjul_Bhargava
+[Vinay]:https://twitter.com/ainvvy
+[list docs]:http://package.elm-lang.org/packages/elm-lang/core/3.0.0/List
