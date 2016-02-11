@@ -246,6 +246,26 @@ Anyway all I did was include the following in my post.html file in the `_layouts
         </script>
 {% endhighlight %}
 
+Now you can do something like:
+
+**And God said:**
+
+$$
+\begin{equation}
+\begin{aligned}
+\frac{\partial\mathcal{D}}{\partial t} \quad & = \quad \nabla\times\mathcal{H},   & \quad \text{(Faraday's Law)} \\[5pt]
+\frac{\partial\mathcal{B}}{\partial t} \quad & = \quad -\nabla\times\mathcal{E},  & \quad \text{(Ampère's Law)}   \\[5pt]
+\nabla\cdot\mathcal{B}                 \quad & = \quad 0,                         & \quad \text{(Gauss Law)}   \\[5pt]
+\nabla\cdot\mathcal{D}                 \quad & = \quad 0.                         & \quad \text{(Colomb Law)}
+\end{aligned}
+\end{equation}
+$$
+
+**and there was light!**
+
+### Syntax highlighters
+Github uses kramdown as its markdown template processing and rouge for syntax highlighting. You can see that rouge supports a long [list of languages][Rouge examples]. You can also find some documnetation in [the rouge wiki][Rouge].
+
 [Jekyll-and-Pages]: https://help.github.com/articles/using-jekyll-with-pages/
 [github-pages-doc]: https://pages.github.com/
 [github-pages-help]: https://help.github.com/categories/github-pages-basics/
@@ -260,3 +280,5 @@ Anyway all I did was include the following in my post.html file in the `_layouts
 [cwoebker]:http://cwoebker.com/posts/latex-math-magic
 [JekyllMathJax]:http://jekyllrb.com/docs/extras/#math-support
 [GastonSanchez]:http://gastonsanchez.com/opinion/2014/02/16/Mathjax-with-jekyll/
+[Rouge]:https://github.com/jneen/rouge/wiki
+[Rouge Examples]:http://rouge.jayferd.us/demo
