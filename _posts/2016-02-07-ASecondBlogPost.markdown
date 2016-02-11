@@ -95,9 +95,7 @@ print message value = show (message ++ (toString value))
 ### Recursive Functions
 
 Recursive functions are simply functions that refer to/call themselves in their definition. Recursion is a powerful technique to solve problems in an intuitive and compact manner. The common example used to illustrate this is the factorial function:
-$$ n! = n*(n-1)!$$. (Okay for those of you interested in mathematics and typesetting to see the previous expression, we have to get $\LaTeX$ working! Latex, Javascript, Jekyll and markdown can all work with each other is something incredible. The fact that I was about to get it up an running in a few minutes is amazing! Okay, I spoke too soon...now even though it works locally it fails once I push it to GitHub!) As you can see the definition of the function refers to itself. This is natural to do in mathematics, can we do the same in an Elm program? The answer is  yes. Let us see how this looks.
-
-$$ a^2 + b^2 = c^2$$
+$$ n! = n*(n-1)!$$. (Okay for those of you interested in mathematics and typesetting to see the previous expression, we have to get $ \LaTeX $ working! Latex, Javascript, Jekyll and markdown can all work with each other is something incredible. The fact that I was about to get it up an running in a few minutes is amazing!) As you can see the definition of the function refers to itself. This is natural to do in mathematics, can we do the same in an Elm program? The answer is  yes. Let us see how this looks:
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
