@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Functional Reactive Programing with Elm: Part I - HTML"
+title:  "Functional Reactive Programing with Elm: Part I - Hello World"
 date:   2016-02-06 13:00:28 -0500
 summary:  I am writing up and introduction to Elm based on isights from my experiences working with Elm (and Haskell/F# earlier). I hope that you will be able to use these posts to experiment with Elm to explore the possibilities of simplifying the code we use to create user interfaces. Using functional languages like Elm which naturally provide composition and functional reactive programing to manage interactivity seems like a good step forward in making rich interactive user interfaces.
 categories: jekyll update
@@ -72,7 +72,7 @@ main =div[][astyledMessage, helloWorldPic]
 {% endhighlight %}
 
 Okay so this post should have given you some flavor of the representation of Html with a DSL. For those who know HTML this is no big deal, but it lays the foundation for being able to generate and manipulate HTML and the DOM tree programmatically.
-I will add more information on using HTML to make interactive web pages later. 
+I will add more information on using HTML to make interactive web pages later.
 
 [try-elm]: http://elm-lang.org/try
 [elm-core]:http://package.elm-lang.org/packages/elm-lang/core/3.0.0/
