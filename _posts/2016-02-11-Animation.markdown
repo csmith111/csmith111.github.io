@@ -74,15 +74,17 @@ import Graphics.Collage exposing (..)
 import Signal exposing (..)
 import Color exposing (..)
 import Time exposing (..)
-import Debug
-main = map draw ball
 
--- Draw the sky, ball, and ground
-draw ball =
+import Debug
+main = map draw ballSignal
+
+
+
+draw aball =
   collage 150 400
    [ rect 150 400 |> filled (rgb 135 206 250)
    , circle 15    |> filled red
-                  |> move (0, ball.height - 160)
+                  |> move (0, aball.height - 160)
    , rect 150 50  |> filled green
                   |> move (0,-200)
    ]
@@ -94,17 +96,64 @@ bounceVelocity = 400
 type alias Ball = { height : Float, velocity : Float}
 
 stepUpdate : Float -> Ball -> Ball
-stepUpdate time ball =
- { ball | height   = ball.height + ball.velocity * time,
-          velocity = if (ball.height < 0) then bounceVelocity else ball.velocity - gravity * time }
+stepUpdate time aball =
+ { aball | height   = aball.height + aball.velocity * time,
+          velocity = if (aball.height < 0) then bounceVelocity else aball.velocity - gravity * time }
 
---foldp : (a -> b -> b) -> b -> Signal.Signal a -> Signal.Signal b
-ball = foldp stepUpdate {height=0, velocity=bounceVelocity}
+--To explain the ordering of paramters in ballSignal
+--Note:foldp : (a -> b -> b) -> b -> Signal.Signal a -> Signal.Signal b
+
+ballSignal : Signal Ball
+ballSignal = foldp stepUpdate {height=0, velocity=bounceVelocity}
                   (map inSeconds (fps 30))
 
 {% endhighlight %}
 
 Try changing the `bounceVelocity` and the `gravity parameters`.
+
+### Exercises
+ * Add a factor called elasticity to and the update rule that
+ `bounceVelocity = elasticity * bounceVelocity` and modify the `type alias Ball = { height : Float, velocity : Float, bounceVelocity}`. This will simulate the effect of elasticity. The ball bounces should progressively decrease in height and finally come to a stop.
+
+ {% highlight Haskell %}
+import Graphics.Collage exposing (..)
+import Signal exposing (..)
+import Color exposing (..)
+import Time exposing (..)
+
+import Debug
+main = map draw ballSignal
+
+draw aball =
+  collage 150 400
+   [ rect 150 400 |> filled (rgb 135 206 250)
+   , circle 15    |> filled red
+                  |> move (0, aball.height - 160)
+   , rect 150 50  |> filled green
+                  |> move (0,-200)
+   ]
+
+-- Physics
+gravity = 640
+--bounceVelocity = 400
+elasticity = 0.95
+
+type alias Ball =
+  { height : Float, velocity : Float, bounceVelocity : Float}
+
+stepUpdate : Float -> Ball -> Ball
+stepUpdate time aball =
+ { aball | height   = aball.height + aball.velocity * time
+           ,velocity = if (aball.height < 0) then aball.bounceVelocity else aball.velocity - gravity * time
+           ,bounceVelocity = if (aball.height < 0) then elasticity * aball.bounceVelocity else aball.bounceVelocity
+          }
+
+--To explain the ordering of paramters in ballSignal
+--Note:foldp : (a -> b -> b) -> b -> Signal.Signal a -> Signal.Signal b
+
+ballSignal : Signal Ball
+ballSignal = foldp stepUpdate {height=0, velocity=400, bounceVelocity=400}
+{% endhighlight %}
 
 ### A clock
 
@@ -186,6 +235,11 @@ batman = group
 
 skinColor = hsl 0.17 1 0.74
 {% endhighlight %}
+
+
+asas
+
+
 [Signals-elm-lang]:http://elm-lang.org/guide/reactivity#signals
 [Elm Basics]: https://csmith111.github.io/jekyll/update/2016/02/07/ASecondBlogPost.html
 [Time Docs]:http://package.elm-lang.org/packages/elm-lang/core/3.0.0/Time#fps
