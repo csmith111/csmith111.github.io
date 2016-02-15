@@ -167,8 +167,7 @@ facP n =
     _ -> n * facP (n-1)
 
 main = flow down [
-    print "factorial(5) using recursion is : " (facP 5)
-  , print "The length of the list [1,2,3] is : " (length [1..3])]
+    print "factorial(5) using recursion is : " (facP 5)]
 
 --a helper function to make display easier
 print message value = show (message ++ (toString value))

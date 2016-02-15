@@ -112,7 +112,7 @@ ballSignal = foldp stepUpdate {height=0, velocity=bounceVelocity}
 Try changing the `bounceVelocity` and the `gravity parameters`.
 
 ### Exercises
- * Add a factor called elasticity to and the update rule that
+ * Add a factor called elasticity and the update rule that
  `bounceVelocity = elasticity * bounceVelocity` and modify the `type alias Ball = { height : Float, velocity : Float, bounceVelocity}`. This will simulate the effect of elasticity. The ball bounces should progressively decrease in height and finally come to a stop.
 
  {% highlight Haskell %}
@@ -135,7 +135,6 @@ draw aball =
 
 -- Physics
 gravity = 640
---bounceVelocity = 400
 elasticity = 0.95
 
 type alias Ball =
@@ -153,6 +152,7 @@ stepUpdate time aball =
 
 ballSignal : Signal Ball
 ballSignal = foldp stepUpdate {height=0, velocity=400, bounceVelocity=400}
+   (map inSeconds (fps 30))
 {% endhighlight %}
 
 ### A clock
@@ -235,9 +235,6 @@ batman = group
 
 skinColor = hsl 0.17 1 0.74
 {% endhighlight %}
-
-
-asas
 
 
 [Signals-elm-lang]:http://elm-lang.org/guide/reactivity#signals
