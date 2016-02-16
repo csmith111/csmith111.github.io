@@ -137,7 +137,6 @@ import List exposing (..)
 
 main : Element
 main =
-  --collage 200 200 [(diamond blue 30), (diamond red 60), (diamond green 90) ]
   collage 300 300 (star blue)
 
 --shapes with color and rotation
@@ -145,7 +144,6 @@ triangle color size angle =
   ngon 3 size
   |>filled color
   |> rotate (degrees angle)
---  |> move (10, -50)
 
 star color = map2 (triangle color) [100,100] [30, 90]
 {% endhighlight %}

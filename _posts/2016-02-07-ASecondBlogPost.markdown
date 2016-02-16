@@ -297,6 +297,39 @@ print message value = show (message ++ (toString value))
 
 ### Function Composition and Pipes
 
+In Elm the operator for function composition is `>>` and `<<` :
+{% highlight Haskell %}
+f >> g = f (g ) = g << f
+{% endhighlight %}
+
+In addition there is also the `|>` operator that allows us to pass the output of one expression as the last argument of the next function. (Exercise: check this.)
+
+{% highlight Haskell %}
+import Graphics.Element exposing (..)
+
+isEven : Int -> Bool
+isEven n =
+   n % 2 == 0
+
+isOdd : Int -> Bool
+isOdd x = not(isEven x)
+
+isOdd1 : Int -> Bool
+isOdd1 = not << isEven
+
+isOdd2 : Int -> Bool
+isOdd2 x = x |> isEven |>not
+
+main = flow down [
+              print "IsEven (3) : " (isEven 3)
+             ,print "IsOdd (3) : " (isOdd 3)
+             ,print "IsOdd1 (3) : " (isOdd1 3)
+             ,print "IsOdd2 (3) : " (isOdd2 3)
+            ]
+
+--a helper function to make display easier
+print message value = show (message ++ (toString value))
+{% endhighlight %}
 
 
 [try-elm]: http://elm-lang.org/try
