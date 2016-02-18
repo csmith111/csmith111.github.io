@@ -155,6 +155,80 @@ ballSignal = foldp stepUpdate {height=0, velocity=400, bounceVelocity=400}
    (map inSeconds (fps 30))
 {% endhighlight %}
 
+### Many Bouncing Balls
+
+Can we extend the Bouncing ball example to many bouncing Balls?
+I ended up using the extremely useful library Signal.Extra.
+But this means that you will have to run this program locally since try-elm does not support Signal.extra currently.
+
+I have covered the Elm installation in the post Elm Setup.
+You can add [Signal.Extra from Github][SignalExtra]
+
+{% highlight Haskell %}
+$ elm package install Apanatshka/elm-signal-extra
+
+{% endhighlight %}
+
+If you don't what to get side tracked into installs at this time, you could just browse the code to understand the key ideas.
+
+{% highlight Haskell %}
+import Graphics.Collage exposing (..)
+import Signal exposing (..)
+import Color exposing (..)
+import Time exposing (..)
+import Signal.Extra exposing (mapMany)
+import Graphics.Element exposing (..)
+import Debug
+import Array exposing (..)
+
+type alias Ball = { id: Int, x : Float, y : Float, vx : Float, vy : Float, initialVy : Float}
+
+drawMany balls =
+   collage 150 400
+   (  (rect 150 400 |> filled (rgb 135 206 250))
+   :: (rect 150 50  |> filled green |> move (0,-200))
+   :: List.map drawBall balls)
+
+drawBall : Ball -> Form
+drawBall aBall =
+    circle 15 |> filled red
+              |> move (aBall.x, aBall.y - 160)
+
+-- Physics
+gravity = 640
+
+-- helper function to extract a value from an Array
+mayBeToValue : Maybe a -> a -> a
+mayBeToValue aJust defaultV =  case aJust of
+  Just a -> a
+  Nothing -> defaultV
+
+--bounceVelocity = 400
+-- Store different initaial velocities for each ball.
+bounceVelocities = fromList [300, 600]
+
+stepUpdate : Float -> Ball -> Ball
+stepUpdate time aball =
+ { aball | y   = aball.y + aball.vy * time,
+           vy  = if (aball.y < 0) then aball.initialVy  else aball.vy - gravity * time }
+
+ballSignal : Ball -> Signal Ball
+ballSignal aBall =
+  foldp stepUpdate aBall
+    (Signal.map inSeconds (fps 30))
+
+ballSignals : List (Signal Ball)
+ballSignals =  [
+                   ballSignal {id = 0, x = 50, y = 0, vx =0, vy = 600, initialVy = 600}
+                 , ballSignal {id = 1, x = -50, y = 0, vx =0, vy = 300, initialVy = 300}
+                ]
+
+main = mapMany (drawMany) ballSignals
+
+--main = drawMany [{x = 50, y = -160, vx =0, vy =0}, {x = -50, y = -160, vx=0, vy =0}]
+{% endhighlight %}
+
+
 ### A clock
 
 This is one of the examples from the [elm site][Elm Clock].
@@ -244,3 +318,4 @@ skinColor = hsl 0.17 1 0.74
 [SignalModule]:http://package.elm-lang.org/packages/elm-lang/core/3.0.0/Signal
 [Elm Clock]:http://elm-lang.org/examples/clock
 [CSmith Signals]:https://csmith111.github.io/jekyll/update/2016/02/10/Signals.html
+[SignalExtra]:https://github.com/Apanatshka/elm-signal-extra
