@@ -6,7 +6,9 @@ summary:  I am writing up and introduction to Elm based on isights from my exper
 categories: jekyll update
 ---
 
-After a long detour into the world of functional programming based on Haskell (yes that does mean some Category theory and Monads too (!)!). I will blog about this later.), I came across a talk by [Evan Czaplicki][Czaplicki-talk] and decided to explore Elm.
+After a long detour into the world of functional programming based on Haskell (yes that does mean some Category theory and Monads too (!)!). I will blog about this later.), I came across a talk by [Evan Czaplicki][Czaplicki-talk] and decided to explore Elm. [You can find his GitHub link here.][Evan GitHub]
+
+[Evan GitHub]:(https://github.com/evancz)
 
 In this series of blogs I will outline some insights that I have gleaned from listening to Evan (who is a very effective speaker) and working through the code examples are reading the documentation. I hope that it will be a useful introduction to Elm and Functional Reactive programming.
 

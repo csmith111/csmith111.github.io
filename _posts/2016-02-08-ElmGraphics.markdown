@@ -139,7 +139,6 @@ main : Element
 main =
   collage 300 300 (star blue)
 
---shapes with color and rotation
 triangle color size angle =
   ngon 3 size
   |>filled color
