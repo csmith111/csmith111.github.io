@@ -7,4 +7,6 @@ summary:  In this post we will look at how to build Web Applications using Elm. 
 categories: jekyll update
 ---
 
-The first thing that we need to look at in developing web application is the support for HTML.
+The first thing that we need to look at in developing web application is the support for HTML. Elm has a built in DSL that incorporates the basic html elements.
+The elm code that governs behavior is transpiled into Javascript and embedded into the html page, which then is run by the browser.
+We can incorporate CSS to style the pages as required.
