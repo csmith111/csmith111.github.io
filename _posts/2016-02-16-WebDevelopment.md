@@ -2,7 +2,7 @@
 layout: post
 title:  "Functional Reactive Programing with Elm: Part VII -  Web Development"
 date:   2016-02-12 13:00:28 -0500
-summary:  In this post we will look at how to build Web Applications using Elm. You will get to see how the functional style of programming allows us to build web applications that are more "composable". We will use Signals, Tasks and Mailboxes to deal with interaction and asynchronous programming.  
+summary:  In this post we will look at how to build Web Applications using Elm. You will get to see how the functional style of programming allows us to build web applications that are more "modular and composable". We will use Signals, Tasks and Mailboxes to deal with interaction and asynchronous programming.  
 
 categories: jekyll update
 ---

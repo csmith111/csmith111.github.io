@@ -224,6 +224,7 @@ take m ys =
    (n,x::xs) ->  [x] ++ take (n-1) xs
 {% endhighlight %}
 
+
 ### Higher Order Functions - Maps, Filters and Folds
 
 Higher order functions is a fancy term for functions that take other functions as parameter. Having said that there is an interesting way to look at this as a paradigm shift in the way we think about functions. The normal way we use functions is to say to the function here is some **data** (parameters) can you please run yourself on my data. On the other hand with higher order functions you are saying here is some **code** can you please run this **code** for me in **your context**.
@@ -271,8 +272,19 @@ You should look up the definition of concatMap and other functions defined in th
 
 ### Anonymous Functions
 
-Before we get to using higher order functions we need to introduce the concept of anonymous functions. Anonymous functions (also called lambda functions) are used to define functions locally so they do not even have a name (hence anonymous) so they can be passed as parameters to other functions.  
-Here are a couple of examples:
+The term Lambda function or Lambda expression comes from [Lambda Calculus][LambdaCalculus]. Introduced by [Alonzo Church][Alonzo Church] in the 1930's as a part of a study of the foundations of mathematics. Just like the [[Turing machine][Turing Machine] is a fundamental model for computation, Lambda Calculus provides a equivalent model for computation. This little comment is a glimpse into a very interesting world of formal analysis of mathematics and computation that I encourage you to follow in your leisure.
+
+Most of the functions that we have encountered so far have names. But are the names really important? Actually, names are important only if we want to reuse the functions in many places. Then, referring to them by their name is quite handy.
+
+We use Lambda functions most often when:
+* We would like to just create a function "right where we need it"
+* We only plan to use the function once.
+* The function is fairly simple
+* We want to return a function from a function.
+
+Usually we do this to pass/receive these functions to other functions that need them.
+
+Here are a couple of examples of Lambda Functions:
 
 {% highlight Haskell %}
 import Graphics.Element exposing (..)
@@ -293,7 +305,28 @@ print message value = show (message ++ (toString value))
 
 * Define an anonymous function and use it to double all the elements of a list.
 
-### Closures and Currying
+* By combining some of the techniques described about implement the quicksort algorithm to sort a list.
+
+{% highlight Haskell %}
+import Graphics.Element exposing (show)
+import List exposing (filter)
+
+main =
+  show (qsort [5,3,8,1,9,4,7])
+
+qsort : List comparable -> List comparable
+qsort list =
+  case list of
+    [] ->
+        []
+    x :: xs ->
+        let
+          greater  = filter ((<=) x) xs
+          lesser = filter ((>)  x) xs
+        in
+          qsort lesser ++ [x] ++ qsort greater
+{% endhighlight %}
+
 
 ### Function Composition and Pipes
 
@@ -332,6 +365,108 @@ print message value = show (message ++ (toString value))
 {% endhighlight %}
 
 
+## Closures
+
+The main idea behind currying is that functions that have `n` parameters can be reduced to a functions that have a single parameter.
+
+In other words we are saying that
+`f : a -> b -> c` is the curried form of `g : (a,b) -> c`.
+
+Of course this means that we are saying that the two function f and g are the same or ` f x y = g (x,y)`.
+
+Let us see what happens when we  perform __partial application__ of functions. In other words if a function expects 2 arguments (for example) then we can create a new function with 1 argument by partial application.
+
+```haskell
+import Graphics.Element exposing (..)
+
+add : Int -> Int -> Int
+add x y  =
+   x + y
+
+-- create increment by partiial application (add 1)
+increment : Int -> Int
+increment = add 1
+
+main = flow down [
+              print "add 2 3 : " (add 2 3)
+             ,print "increment 3 gives : " (increment 3)
+            ]
+
+--a helper function to make display easier
+print message value = show (message ++ (toString value))
+```
+In the example above we were able to create the function
+`increment : Int -> Int` by partial application from the function
+`add : Int -> Int -> Int`. As you can see the number of parameters in the function increment is less than that of the function add. __note:__ Elm does not give us an error saying that it expected two parameters, it returns a new function with one less argument. This behavior needs getting used to as sometimes you will find that in your code if you miss a paramter the error message will be about problems caused by this new function that you have unintentionally created.
+
+This example give us the heuristics for currying. We can read the signature `add : Int -> Int -> Int` either as saying that add is a function that takes two Integers and returns an Integer or add is a function that given an Int it returns a function  from (Int -> Int). And these two representations are equivalent. We just used partial application to see what this looks like.
+
+For the most part Currying is formal and does not impact the new developer. I would say understanding partial application is quite useful in many situations.
+
+## Sections
+
+Another related idea is that we can also use partial applications on infix operators.
+Here are some examples of sections:
+
+```haskell
+import Graphics.Element exposing (..)
+
+increment : Int -> Int
+increment = ((+) 1)
+
+twoToPower : Int -> Int
+twoToPower = ((^)2)
+
+square : Int -> Int
+square = (flip (^)2)
+
+main = flow down [
+              print "2 to the power 3 : " (twoToPower 3)
+             ,print "increment 3 gives : " (increment 3)
+             ,print "square of 3 is : " (square 3)
+            ]
+
+--a helper function to make display easier
+print message value = show (message ++ (toString value))
+```
+
+## Closures
+
+Now we come to a very interesting concept that we must understand if we are going to pass functions to other functions.
+
+Consider this example:
+
+```haskell
+import Graphics.Element exposing (..)
+
+createIncrementer : Int -> Int -> Int
+createIncrementer n =
+ let incrementValue = n
+ in ((+) incrementValue)
+
+incrementByOne : Int -> Int
+incrementByOne = createIncrementer 1
+
+incrementByTwo : Int -> Int
+incrementByTwo = createIncrementer 2
+
+
+main = flow down [
+              print "incrementByOne 3 : " (incrementByOne 3)
+             ,print "incrementByTwo gives : " (incrementByTwo 3)
+            ]
+
+--a helper function to make display easier
+print message value = show (message ++ (toString value))
+```
+
+In this example the function `createIncrementer` returns a function. But that function depends on the local variable `incrementValue` that is defined within `createIncrementer`.
+What is intesting is that the returned functions, `incrementByOne` and `incrementByTwo` remember/capture the __value of this local variable at the time they were created__. So they have captured some of the state of the function that they were created in. This is called "closing over the local variable" and more generally this behavior is called a closure.
+
+
+[Turing machine]:https://en.wikipedia.org/wiki/Turing_machine
+[Alonzo Church]:https://en.wikipedia.org/wiki/Alonzo_Church
+[LambdaCalculus]:[https://en.wikipedia.org/wiki/Lambda_calculus]
 [try-elm]: http://elm-lang.org/try
 [fib-ref]:https://en.wikipedia.org/wiki/Fibonacci_number
 [Hemachandra-ref]:https://en.wikipedia.org/wiki/Hemachandra

@@ -29,7 +29,7 @@ main = Signal.map2 animatedImage Mouse.x Mouse.y
 
 {% endhighlight %}
 
-Try this out by pasting this code in the [online editor/runner.][try-elm] You should see that the image size is animated based on the x coordinate of the Mouse withing the window.
+Try this out by pasting this code in the [online editor/runner.][try-elm] You should see that the image size is animated based on the x coordinate of the Mouse within the window.
 
 Let us see if we can understand this code. The first thing is to create a function that displays an image (Feel free to replace this image with any image you like to animate and continue the exercises). This function `animatedImage` takes two parameters set the width and height of the the image.
 
