@@ -268,6 +268,52 @@ $$
 ### Syntax highlighters
 Github uses kramdown as its markdown template processing and rouge for syntax highlighting. You can see that rouge supports a long [list of languages][Rouge examples]. You can also find some documnetation in [the rouge wiki][Rouge].
 
+### Using GitHub project pages for blogging
+
+This is a less documented solution, but it is worth looking into if you want
+to maintain multiple blogs on different topics. Or use Jekyll to maintain
+documentation for your projects.
+Create a repository to host your new site. The name of the repository will be come part of the url of your website so choose a good name for the repository.
+
+Now locally make a folder with the same name as the repository and clone the repository locally.
+
+Create a local folder with and git clone your blog repository.
+Then change into that repository and create an orphan branch as follows:
+{% highlight shell%}
+git clone "https://github.com/username/repositoryname.git"
+cd repositoryname
+git checkout --orphan gh-pages
+{% endhighlight %}
+
+Add your blog files. And check in your files using:
+{% highlight shell%}
+git add --all
+git commit - m "Initial commit"
+git push -u origin gh-pages
+{% endhighlight %}
+
+That is it! You site should be available at:
+http://username.github.io/repositoryname/
+
+Well you are almost done. The links to pages in your site may not work.
+In your config.yml file make sure that you set up:
+
+{% highlight shell%}
+baseurl: /repositoryname
+url: "http://username.github.io/"
+{% endhighlight %}
+
+Also all your links now need to be done as follows:
+{% highlight html%}
+<h2><a href="{{ site.baseurl }}{{xml_escape post.url }}">{{ post.title }}</a></h2>
+{% endhighlight %}
+
+{% highlight html%}
+<a href="'{'{ site.baseurl }}'{'{post.url }}">'{'{ post.title }}</a></h2>
+{% endhighlight %}
+
+Notice how we have prepended the $site.baseurl$ to the $post.url$ to ensure that the generated links have the correct url. (Please ignore the $'$ they are there just to escape the liquid template procesing until I find the right escape character.)
+
 [Jekyll-and-Pages]: https://help.github.com/articles/using-jekyll-with-pages/
 [github-pages-doc]: https://pages.github.com/
 [github-pages-help]: https://help.github.com/categories/github-pages-basics/
