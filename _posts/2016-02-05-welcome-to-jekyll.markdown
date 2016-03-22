@@ -62,7 +62,7 @@ To check that you are in sync with the repo and GitHub pages are working you jus
 cd username.github.io
 echo "Hello Blog" >index.html
 git add --all
-git commit - m "Initial commit"
+git commit -m "Initial commit"
 git push -u origin master
 {% endhighlight %}
 
